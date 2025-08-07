@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REQAM - Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="styles/dashboard.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-container">
+                <i class="fas fa-coins logo-icon"></i>
+                <span class="logo-text">REQAM</span>
+            </div>
+            <button class="sidebar-toggle d-lg-none" onclick="toggleSidebar()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link active">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="pengajuan-dana.html" class="nav-link">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <span>Pengajuan Dana</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="daftar-pengajuan.html" class="nav-link">
+                        <i class="fas fa-list-alt"></i>
+                        <span>Daftar Pengajuan</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="approval-management.html" class="nav-link">
+                        <i class="fas fa-tasks"></i>
+                        <span>Approval Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="tracking-approval.html" class="nav-link">
+                        <i class="fas fa-search"></i>
+                        <span>Tracking Approval</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="saldo-balance.html" class="nav-link">
+                        <i class="fas fa-wallet"></i>
+                        <span>Saldo Balance</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="rekening-bank.html" class="nav-link">
+                        <i class="fas fa-university"></i>
+                        <span>Rekening Bank</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="general-ledger.html" class="nav-link">
+                        <i class="fas fa-book"></i>
+                        <span>General Ledger</span>
+                    </a>
+                </li>
+                <li class="nav-item has-submenu" id="userManagementMenu">
+                    <a href="#" class="nav-link" onclick="toggleSubmenu('userManagementMenu')">
+                        <i class="fas fa-users-cog"></i>
+                        <span>Management User</span>
+                    </a>
+                    <ul class="submenu" id="userManagementSubmenu">
+                        <li class="nav-item">
+                            <a href="daftar-user.html" class="nav-link">
+                                <i class="fas fa-user-plus"></i>
+                                <span>Registrasi User</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="assignment-user.html" class="nav-link">
+                                <i class="fas fa-user-cog"></i>
+                                <span>Assignment User</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-details">
+                    <span class="user-name" id="userName">John Doe</span>
+                    <span class="user-role" id="userRole">Nazim Maal</span>
+                </div>
+            </div>
+            <button class="btn btn-outline-light btn-sm" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                Keluar
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="main-header">
+            <div class="header-left">
+                <button class="sidebar-toggle d-lg-none" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header-info">
+                    <h1 class="page-title">Dashboard</h1>
+                    <p class="page-subtitle">Selamat datang di Sistem Manajemen Pengajuan Dana</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="header-actions">
+                    <div class="current-time" id="currentTime">
+                        <i class="fas fa-clock"></i>
+                        <span id="timeDisplay"></span>
+                    </div>
+                    <button class="btn btn-outline-primary btn-sm" onclick="showNotifications()">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge bg-danger">3</span>
+                    </button>
+                    <div class="user-profile-mini">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="profile-info">
+                            <span class="profile-name" id="headerUserName">John Doe</span>
+                            <span class="profile-location" id="headerUserLocation">Jakarta</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <main class="content-area">
+            <!-- Welcome Banner -->
+            <div class="welcome-banner">
+                <div class="welcome-content">
+                    <div class="welcome-text">
+                        <h2>Selamat Datang, <span id="welcomeUserName">John Doe</span>!</h2>
+                        <p>Kelola pengajuan dana Anda dengan mudah dan efisien</p>
+                    </div>
+                    <div class="welcome-actions">
+                        <a href="pengajuan-dana.html" class="btn btn-primary btn-lg">
+                            <i class="fas fa-plus-circle"></i>
+                            Buat Pengajuan Baru
+                        </a>
+                        <a href="tracking-approval.html" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-search"></i>
+                            Track Status
+                        </a>
+                    </div>
+                </div>
+                <div class="welcome-illustration">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="row mb-4">
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="stats-card stats-primary">
+                        <div class="stats-icon">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </div>
+                        <div class="stats-content">
+                            <h3 id="totalPengajuan">25</h3>
+                            <p>Total Pengajuan</p>
+                            <div class="stats-trend">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>+12% dari bulan lalu</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="stats-card stats-success">
+                        <div class="stats-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stats-content">
+                            <h3 id="pengajuanDisetujui">18</h3>
+                            <p>Disetujui</p>
+                            <div class="stats-trend">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>+8% dari bulan lalu</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="stats-card stats-warning">
+                        <div class="stats-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stats-content">
+                            <h3 id="pengajuanMenunggu">5</h3>
+                            <p>Menunggu Approval</p>
+                            <div class="stats-trend">
+                                <i class="fas fa-arrow-down"></i>
+                                <span>-3% dari bulan lalu</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="stats-card stats-info">
+                        <div class="stats-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="stats-content">
+                            <h3 id="totalNominal">Rp 125M</h3>
+                            <p>Total Nominal</p>
+                            <div class="stats-trend">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>+15% dari bulan lalu</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="quick-actions-card">
+                        <h5 class="quick-actions-title">
+                            <i class="fas fa-bolt"></i>
+                            Aksi Cepat
+                        </h5>
+                        <div class="quick-actions-grid">
+                            <a href="pengajuan-dana.html" class="quick-action-item">
+                                <div class="action-icon bg-primary">
+                                    <i class="fas fa-plus"></i>
+                                </div>
+                                <div class="action-content">
+                                    <h6>Pengajuan Baru</h6>
+                                    <p>Buat pengajuan dana baru</p>
+                                </div>
+                            </a>
+                            <a href="daftar-pengajuan.html" class="quick-action-item">
+                                <div class="action-icon bg-success">
+                                    <i class="fas fa-list"></i>
+                                </div>
+                                <div class="action-content">
+                                    <h6>Lihat Pengajuan</h6>
+                                    <p>Daftar semua pengajuan</p>
+                                </div>
+                            </a>
+                            <a href="tracking-approval.html" class="quick-action-item">
+                                <div class="action-icon bg-info">
+                                    <i class="fas fa-route"></i>
+                                </div>
+                                <div class="action-content">
+                                    <h6>Track Status</h6>
+                                    <p>Lacak status approval</p>
+                                </div>
+                            </a>
+                            <a href="saldo-balance.html" class="quick-action-item">
+                                <div class="action-icon bg-warning">
+                                    <i class="fas fa-wallet"></i>
+                                </div>
+                                <div class="action-content">
+                                    <h6>Cek Saldo</h6>
+                                    <p>Lihat saldo balance</p>
+                                </div>
+                            </a>
+                            <a href="general-ledger.html" class="quick-action-item">
+                                <div class="action-icon bg-secondary">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <div class="action-content">
+                                    <h6>General Ledger</h6>
+                                    <p>Laporan keuangan</p>
+                                </div>
+                            </a>
+                            <button class="quick-action-item" onclick="exportDashboardReport()">
+                                <div class="action-icon bg-dark">
+                                    <i class="fas fa-download"></i>
+                                </div>
+                                <div class="action-content">
+                                    <h6>Export Report</h6>
+                                    <p>Download laporan</p>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Recent Submissions -->
+                <div class="col-lg-8 mb-4">
+                    <div class="card enhanced-card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="card-title">
+                                    <i class="fas fa-history text-primary me-2"></i>
+                                    Pengajuan Terbaru
+                                </h5>
+                                <a href="daftar-pengajuan.html" class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    Lihat Semua
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Kategori</th>
+                                            <th>Jumlah</th>
+                                            <th>Status</th>
+                                            <th>Tanggal</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="recentSubmissions">
+                                        <!-- Data akan dimuat via JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Balance & Notifications -->
+                <div class="col-lg-4 mb-4">
+                    <!-- Balance Info -->
+                    <div class="card enhanced-card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                <i class="fas fa-wallet text-success me-2"></i>
+                                Saldo Kas
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="balance-summary">
+                                <div class="balance-main">
+                                    <div class="balance-amount-large" id="mainBalance">Rp 15.500.000</div>
+                                    <div class="balance-location" id="balanceLocation">Wilayah Jakarta</div>
+                                </div>
+                                <div class="balance-details">
+                                    <div class="balance-detail-item">
+                                        <span class="detail-label">Branch Jakarta Utara</span>
+                                        <span class="detail-amount">Rp 3.200.000</span>
+                                    </div>
+                                    <div class="balance-detail-item">
+                                        <span class="detail-label">Tersedia</span>
+                                        <span class="detail-amount text-success">Rp 2.800.000</span>
+                                    </div>
+                                    <div class="balance-detail-item">
+                                        <span class="detail-label">Pending</span>
+                                        <span class="detail-amount text-warning">Rp 400.000</span>
+                                    </div>
+                                </div>
+                                <a href="saldo-balance.html" class="btn btn-outline-success btn-sm w-100 mt-3">
+                                    <i class="fas fa-eye"></i>
+                                    Lihat Detail Saldo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="card enhanced-card">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                <i class="fas fa-bell text-warning me-2"></i>
+                                Notifikasi
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="notifications-list">
+                                <div class="notification-item">
+                                    <div class="notification-icon bg-success">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <h6>Pengajuan Disetujui</h6>
+                                        <p>REQ-001 telah disetujui</p>
+                                        <small>2 jam yang lalu</small>
+                                    </div>
+                                </div>
+                                <div class="notification-item">
+                                    <div class="notification-icon bg-info">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <h6>Menunggu Approval</h6>
+                                        <p>REQ-003 sedang diproses</p>
+                                        <small>5 jam yang lalu</small>
+                                    </div>
+                                </div>
+                                <div class="notification-item">
+                                    <div class="notification-icon bg-primary">
+                                        <i class="fas fa-info"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <h6>Sistem Update</h6>
+                                        <p>Fitur baru telah tersedia</p>
+                                        <small>1 hari yang lalu</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline-primary btn-sm w-100 mt-3" onclick="showAllNotifications()">
+                                <i class="fas fa-bell"></i>
+                                Lihat Semua Notifikasi
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/sweetalert-config.js"></script>
+</body>
+</html>

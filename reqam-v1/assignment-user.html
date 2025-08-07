@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REQAM - Assignment User</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="styles/dashboard.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-container">
+                <i class="fas fa-coins logo-icon"></i>
+                <span class="logo-text">REQAM</span>
+            </div>
+            <button class="sidebar-toggle d-lg-none" onclick="toggleSidebar()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="pengajuan-dana.html" class="nav-link">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <span>Pengajuan Dana</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="daftar-pengajuan.html" class="nav-link">
+                        <i class="fas fa-list-alt"></i>
+                        <span>Daftar Pengajuan</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="approval-management.html" class="nav-link">
+                        <i class="fas fa-tasks"></i>
+                        <span>Approval Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="tracking-approval.html" class="nav-link">
+                        <i class="fas fa-search"></i>
+                        <span>Tracking Approval</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="saldo-balance.html" class="nav-link">
+                        <i class="fas fa-wallet"></i>
+                        <span>Saldo Balance</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="rekening-bank.html" class="nav-link">
+                        <i class="fas fa-university"></i>
+                        <span>Rekening Bank</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="general-ledger.html" class="nav-link">
+                        <i class="fas fa-book"></i>
+                        <span>General Ledger</span>
+                    </a>
+                </li>
+                <li class="nav-item has-submenu" id="userManagementMenu">
+                    <a href="#" class="nav-link" onclick="toggleSubmenu('userManagementMenu')">
+                        <i class="fas fa-users-cog"></i>
+                        <span>Management User</span>
+                    </a>
+                    <ul class="submenu" id="userManagementSubmenu">
+                        <li class="nav-item">
+                            <a href="daftar-user.html" class="nav-link">
+                                <i class="fas fa-user-plus"></i>
+                                <span>Registrasi User</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="assignment-user.html" class="nav-link active">
+                                <i class="fas fa-user-cog"></i>
+                                <span>Assignment User</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-details">
+                    <span class="user-name" id="userName">John Doe</span>
+                    <span class="user-role" id="userRole">Nazim Maal</span>
+                </div>
+            </div>
+            <button class="btn btn-outline-light btn-sm" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                Keluar
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="main-header">
+            <div class="header-left">
+                <button class="sidebar-toggle d-lg-none" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="page-title">Assignment User</h1>
+            </div>
+            <div class="header-right">
+                <div class="header-actions">
+                    <button class="btn btn-primary btn-sm" onclick="showAddAssignmentModal()">
+                        <i class="fas fa-user-plus"></i>
+                        Assign User
+                    </button>
+                    <button class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge bg-danger">3</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <main class="content-area">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="card-title">
+                            <i class="fas fa-user-cog text-primary me-2"></i>
+                            Manajemen Assignment User
+                        </h5>
+                        <div class="header-actions">
+                            <button class="btn btn-success btn-sm" onclick="exportAssignmentData()">
+                                <i class="fas fa-download"></i>
+                                Export Data
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Filter Section -->
+                    <div class="filter-section mb-4">
+                        <h6 class="filter-title">
+                            <i class="fas fa-filter"></i>
+                            Filter & Pencarian
+                        </h6>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="filterWilayah" class="form-label">Wilayah</label>
+                                    <select id="filterWilayah" class="form-control" onchange="filterAssignmentData()">
+                                        <option value="">Semua Wilayah</option>
+                                        <option value="Jakarta">Jakarta</option>
+                                        <option value="Bandung">Bandung</option>
+                                        <option value="Surabaya">Surabaya</option>
+                                        <option value="Jawa Barat 10">Jawa Barat 10</option>
+                                        <option value="Jawa Barat 7">Jawa Barat 7</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="searchAssignment" class="form-label">Pencarian</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-search"></i>
+                                        </span>
+                                        <input type="text" id="searchAssignment" class="form-control" placeholder="Cari nama, AIMS..." onkeyup="filterAssignmentData()">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <button class="btn btn-outline-secondary btn-sm me-2" onclick="resetAssignmentFilter()">
+                                    <i class="fas fa-undo"></i>
+                                    Reset Filter
+                                </button>
+                            </div>
+                            <div class="col-md-6 d-flex align-items-end justify-content-end">
+                                <span class="text-muted">Total: <strong id="totalAssignmentCount">0</strong> assignment</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Statistics Cards -->
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <div class="stat-card bg-primary">
+                                <div class="stat-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h4 id="statTotalUsers">0</h4>
+                                    <p>Total User Assigned</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="stat-card bg-success">
+                                <div class="stat-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h4 id="statWilayah">0</h4>
+                                    <p>Wilayah</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="stat-card bg-warning">
+                                <div class="stat-icon">
+                                    <i class="fas fa-building"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h4 id="statBranch">0</h4>
+                                    <p>Branch</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="stat-card bg-info">
+                                <div class="stat-icon">
+                                    <i class="fas fa-user-cog"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h4 id="statTotalAssignments">0</h4>
+                                    <p>Total Assignments</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Table -->
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>AIMS</th>
+                                    <th>Nama</th>
+                                    <th>Email</th>
+                                    <th>Type Badan</th>
+                                    <th>Wilayah</th>
+                                    <th>Branch</th>
+                                    <th>Total Assignments</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="assignmentTable">
+                                <!-- Data akan dimuat via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination-container">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="pagination-info">
+                                <span class="text-muted">
+                                    Menampilkan <strong id="assignmentShowingStart">0</strong> - <strong id="assignmentShowingEnd">0</strong> 
+                                    dari <strong id="assignmentShowingTotal">0</strong> data
+                                </span>
+                            </div>
+                            <nav aria-label="Pagination">
+                                <ul class="pagination pagination-sm mb-0" id="assignmentPaginationControls">
+                                    <!-- Pagination controls akan dimuat via JavaScript -->
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+    <!-- Modal untuk Tambah Assignment -->
+    <div class="modal fade" id="addAssignmentModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-user-plus text-success me-2"></i>
+                        Assign User Baru
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addAssignmentForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="addAssignmentAims" class="form-label">
+                                        <i class="fas fa-id-card text-primary me-2"></i>
+                                        AIMS
+                                    </label>
+                                    <select id="addAssignmentAims" class="form-control" required onchange="updateAddUserInfo()">
+                                        <option value="">Pilih User</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="addAssignmentNama" class="form-label">
+                                        <i class="fas fa-user text-primary me-2"></i>
+                                        Nama Lengkap
+                                    </label>
+                                    <input type="text" id="addAssignmentNama" class="form-control" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="addAssignmentEmail" class="form-label">
+                                        <i class="fas fa-envelope text-primary me-2"></i>
+                                        Email
+                                    </label>
+                                    <input type="email" id="addAssignmentEmail" class="form-control" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="addAssignmentTelepon" class="form-label">
+                                        <i class="fas fa-phone text-primary me-2"></i>
+                                        No Telepon
+                                    </label>
+                                    <input type="tel" id="addAssignmentTelepon" class="form-control" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label for="addAssignmentWilayah" class="form-label">
+                                        <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                                        Wilayah
+                                    </label>
+                                    <select id="addAssignmentWilayah" class="form-control" required onchange="updateAddAssignmentBranches()">
+                                        <option value="">Pilih Wilayah</option>
+                                        <option value="Jakarta">Jakarta</option>
+                                        <option value="Bandung">Bandung</option>
+                                        <option value="Surabaya">Surabaya</option>
+                                        <option value="Jawa Barat 10">Jawa Barat 10</option>
+                                        <option value="Jawa Barat 7">Jawa Barat 7</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label for="addAssignmentBranch" class="form-label">
+                                        <i class="fas fa-building text-primary me-2"></i>
+                                        Branch
+                                    </label>
+                                    <select id="addAssignmentBranch" class="form-control" required>
+                                        <option value="">Pilih Branch</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label for="addAssignmentJabatan" class="form-label">
+                                        <i class="fas fa-user-tie text-primary me-2"></i>
+                                        Jabatan
+                                    </label>
+                                    <select id="addAssignmentJabatan" class="form-control" required>
+                                        <option value="">Pilih Jabatan</option>
+                                        <option value="Qaid Wilayah">Qaid Wilayah</option>
+                                        <option value="Qaid Majelis">Qaid Majelis</option>
+                                        <option value="Nazim Maal">Nazim Maal</option>
+                                        <option value="Nazim Sehat Jasmani">Nazim Sehat Jasmani</option>
+                                        <option value="Nazim Tarbiayat">Nazim Tarbiayat</option>
+                                        <option value="Nazim Tabligh">Nazim Tabligh</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="addAssignmentManagementType" class="form-label">
+                                <i class="fas fa-sitemap text-primary me-2"></i>
+                                Management Type
+                            </label>
+                            <select id="addAssignmentManagementType" class="form-control" required>
+                                <option value="">Pilih Management Type</option>
+                                <option value="MARKAZ">MARKAZ</option>
+                                <option value="AMILA">AMILA</option>
+                                <option value="KHUDAM">KHUDAM</option>
+                                <option value="LAJNAH">LAJNAH</option>
+                                <option value="ANSHAR">ANSHAR</option>
+                                <option value="AMSA">AMSA</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i>
+                        Batal
+                    </button>
+                    <button type="button" class="btn btn-success" onclick="addNewAssignment()">
+                        <i class="fas fa-user-plus"></i>
+                        Assign User
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal untuk View User Detail dengan Assignments -->
+    <div class="modal fade" id="viewUserAssignmentModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-user text-primary me-2"></i>
+                        Detail User & Assignments
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="userAssignmentDetail">
+                        <!-- Detail content akan dimuat via JavaScript -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i>
+                        Tutup
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/assignment-user.js"></script>
+    <script src="js/sweetalert-config.js"></script>
+</body>
+</html>
