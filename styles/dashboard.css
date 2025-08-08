@@ -1,0 +1,118 @@
+@@ .. @@
+.priority-urgent {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    color: white;
+}
+
++/* Finance Approval Specific Styles */
++.finance-badge {
++    display: flex;
++    align-items: center;
++    gap: 8px;
++    padding: 8px 12px;
++    background: linear-gradient(135deg, #059669, #047857);
++    color: white;
++    border-radius: 8px;
++    font-size: 0.875rem;
++    font-weight: 500;
++}
++
++.transfer-summary {
++    background: #f8fafc;
++    border-radius: 12px;
++    padding: 20px;
++    margin-bottom: 20px;
++    border: 1px solid #e2e8f0;
++}
++
++.transfer-amount {
++    font-size: 1.25rem;
++    font-weight: 700;
++    color: #059669;
++}
++
++.transfer-info-card {
++    background: #f0fdf4;
++    border: 1px solid #bbf7d0;
++    border-radius: 12px;
++    padding: 16px;
++}
++
++.transfer-detail-item {
++    display: flex;
++    justify-content: space-between;
++    align-items: center;
++    padding: 8px 0;
++    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
++}
++
++.transfer-detail-item:last-child {
++    border-bottom: none;
++}
++
++.transfer-detail-item .label {
++    font-weight: 500;
++    color: #374151;
++    min-width: 120px;
++}
++
++.transfer-detail-item .value {
++    color: #1f2937;
++    font-weight: 600;
++    text-align: right;
++}
++
++.bukti-transfer-section {
++    background: #fefce8;
++    border: 1px solid #fde047;
++    border-radius: 12px;
++    padding: 16px;
++    margin-top: 20px;
++}
++
++.bukti-transfer-preview {
++    margin-top: 12px;
++}
++
++.file-preview {
++    display: flex;
++    align-items: center;
++    gap: 12px;
++    padding: 12px;
++    background: white;
++    border-radius: 8px;
++    border: 1px solid #e5e7eb;
++}
++
++.file-preview i {
++    font-size: 1.5rem;
++}
++
++.file-preview span {
++    flex: 1;
++    font-weight: 500;
++    color: #374151;
++}
++
++/* Status badges for finance */
++.status-badge.status-ready-transfer {
++    background: linear-gradient(135deg, #f59e0b, #d97706);
++    color: white;
++}
++
++.status-badge.status-transferred {
++    background: linear-gradient(135deg, #059669, #047857);
++    color: white;
++}
++
++/* Enhanced timeline for transfer */
++.timeline-item .transfer-info {
++    background: rgba(5, 150, 105, 0.1);
++    border-radius: 6px;
++    padding: 8px;
++    margin-top: 8px;
++}
++
+ /* Responsive Design */
+ @media (max-width: 768px) {
+     .sidebar {
